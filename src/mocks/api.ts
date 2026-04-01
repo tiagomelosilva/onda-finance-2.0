@@ -2,6 +2,7 @@ import { apiClient } from "@/lib/axios";
 import { mockUser, mockUserCredentials } from "@/mocks/data";
 import { useAccountStore } from "@/stores/account-store";
 import { useSessionStore } from "@/stores/session-store";
+import type { CurrencyBalances, CurrencyCode, TransferSettlementType } from "@/types/currency";
 import type { Transaction } from "@/types/transaction";
 
 interface LoginPayload {
@@ -14,10 +15,14 @@ interface TransferPayload {
   email: string;
   amount: number;
   description?: string;
+  sourceCurrency: CurrencyCode;
+  destinationCurrency: CurrencyCode;
+  settlementType: TransferSettlementType;
 }
 
 interface DashboardResponse {
   balance: number;
+  balances: CurrencyBalances;
   transactions: Transaction[];
 }
 
@@ -28,8 +33,7 @@ export async function loginMock(payload: LoginPayload) {
   await wait(500);
 
   const matchesUser =
-    payload.email === mockUserCredentials.email &&
-    payload.password === mockUserCredentials.password;
+    payload.email === mockUserCredentials.email && payload.password === mockUserCredentials.password;
 
   if (!matchesUser) {
     throw new Error("Credenciais inválidas. Use os dados do usuário mockado.");
@@ -49,22 +53,24 @@ export async function getDashboardData(): Promise<DashboardResponse> {
   void apiClient.defaults.baseURL;
   await wait(650);
 
-  const { transactions, balance } = useAccountStore.getState();
+  const { transactions, balance, balances } = useAccountStore.getState();
 
   return {
     balance,
+    balances,
     transactions,
   };
 }
 
 export async function createTransferMock(payload: TransferPayload) {
   void apiClient.defaults.baseURL;
-  await wait(500);
+  await wait(payload.settlementType === "crypto" ? 900 : payload.sourceCurrency === payload.destinationCurrency ? 500 : 650);
 
   const transaction = useAccountStore.getState().createTransfer(payload);
 
   return {
     transaction,
     balance: useAccountStore.getState().balance,
+    balances: useAccountStore.getState().balances,
   };
 }

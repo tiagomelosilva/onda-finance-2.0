@@ -7,6 +7,8 @@ export default defineConfig({
         },
     },
     test: {
+        include: ["src/tests/**/*.test.ts?(x)"],
+        exclude: ["jobz-teste1.0/**", "dist/**", "node_modules/**"],
         environment: "jsdom",
         globals: true,
         setupFiles: "./src/tests/setup.ts",

@@ -87,7 +87,7 @@ export function TransactionDetailsModal({
       email: currentTransaction.email,
       typeLabel: isExpense ? "Saida" : "Entrada",
       statusLabel: currentTransaction.status === "completed" ? "Concluida" : "Processando",
-      amountLabel: formatCurrency(currentTransaction.amount),
+      amountLabel: formatCurrency(currentTransaction.amount, currentTransaction.currency),
       createdAtLabel: formatDate(currentTransaction.createdAt),
       description: currentTransaction.description || "Sem descricao",
     });
@@ -167,7 +167,7 @@ export function TransactionDetailsModal({
           />
           <DetailField
             label="Valor"
-            value={formatCurrency(currentTransaction.amount)}
+            value={formatCurrency(currentTransaction.amount, currentTransaction.currency)}
             valueClassName={cn(isExpense ? "text-rose-600" : "text-emerald-600")}
           />
           <DetailField label="Data e hora" value={formatDate(currentTransaction.createdAt)} />

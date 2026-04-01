@@ -1,4 +1,5 @@
 import type { User } from "@/types/auth";
+import type { CurrencyBalances } from "@/types/currency";
 import type { Transaction } from "@/types/transaction";
 
 export const mockUserCredentials = {
@@ -14,15 +15,31 @@ export const mockUser: User = {
 
 export const initialBalance = 12450.9;
 
+export const initialBalances: CurrencyBalances = {
+  BRL: initialBalance,
+  USD: 2350.75,
+  EUR: 980.4,
+};
+
 export const initialTransactions: Transaction[] = [
   {
     id: "trx-001",
     recipientName: "Empresa Delta",
     email: "financeiro@delta.com",
     amount: 2250.0,
+    currency: "BRL",
     description: "Recebimento de projeto mensal",
     type: "income",
     status: "completed",
+    sourceAmount: 2250.0,
+    sourceCurrency: "BRL",
+    destinationAmount: 2250.0,
+    destinationCurrency: "BRL",
+    exchangeRate: 1,
+    feePercentage: 0,
+    settlementType: "fiat",
+    scope: "local",
+    processingLabel: "Liquidação local instantânea",
     createdAt: "2026-03-30T10:15:00.000Z",
   },
   {
@@ -30,19 +47,39 @@ export const initialTransactions: Transaction[] = [
     recipientName: "Mercado Aurora",
     email: "pagamentos@mercadoaurora.com",
     amount: 438.72,
+    currency: "BRL",
     description: "Despesas operacionais",
     type: "expense",
     status: "completed",
+    sourceAmount: 438.72,
+    sourceCurrency: "BRL",
+    destinationAmount: 438.72,
+    destinationCurrency: "BRL",
+    exchangeRate: 1,
+    feePercentage: 0,
+    settlementType: "fiat",
+    scope: "local",
+    processingLabel: "Liquidação local instantânea",
     createdAt: "2026-03-28T18:40:00.000Z",
   },
   {
     id: "trx-003",
     recipientName: "Investimentos Azul",
     email: "aporte@azul.com",
-    amount: 1800.0,
-    description: "Resgate de aplicação",
+    amount: 320.0,
+    currency: "USD",
+    description: "Liquidação internacional recebida",
     type: "income",
     status: "completed",
+    sourceAmount: 1760.0,
+    sourceCurrency: "EUR",
+    destinationAmount: 320.0,
+    destinationCurrency: "USD",
+    exchangeRate: 0.1824,
+    feePercentage: 0.0125,
+    settlementType: "fiat",
+    scope: "international",
+    processingLabel: "Liquidação internacional em até 30 min",
     createdAt: "2026-03-26T14:05:00.000Z",
   },
   {
@@ -50,24 +87,45 @@ export const initialTransactions: Transaction[] = [
     recipientName: "Condomínio Atlântico",
     email: "cobranca@atlantico.com",
     amount: 950.5,
+    currency: "BRL",
     description: "Pagamento mensal",
     type: "expense",
     status: "completed",
+    sourceAmount: 950.5,
+    sourceCurrency: "BRL",
+    destinationAmount: 950.5,
+    destinationCurrency: "BRL",
+    exchangeRate: 1,
+    feePercentage: 0,
+    settlementType: "fiat",
+    scope: "local",
+    processingLabel: "Liquidação local instantânea",
     createdAt: "2026-03-24T11:30:00.000Z",
   },
   {
     id: "trx-005",
     recipientName: "Cliente Horizonte",
     email: "contato@horizonte.com",
-    amount: 3200.0,
-    description: "Entrada extraordinária",
+    amount: 610.0,
+    currency: "EUR",
+    description: "Repasse em stable route simulada",
     type: "income",
-    status: "completed",
+    status: "processing",
+    sourceAmount: 675.0,
+    sourceCurrency: "USD",
+    destinationAmount: 610.0,
+    destinationCurrency: "EUR",
+    exchangeRate: 0.9167,
+    feePercentage: 0.0065,
+    settlementType: "crypto",
+    scope: "crypto",
+    processingLabel: "Rede cripto • confirmação em até 5 min",
     createdAt: "2026-03-21T09:20:00.000Z",
   },
 ];
 
 export const initialAccountState = {
   balance: initialBalance,
+  balances: initialBalances,
   transactions: initialTransactions,
 };
