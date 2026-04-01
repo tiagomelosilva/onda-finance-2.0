@@ -1,27 +1,29 @@
-# Onda Finance
+# Onda Finance 2.0
 
-Aplicação web que simula um fluxo bancário simples, com foco em organização de código, experiência do usuário e base preparada para evolução real.
+Aplicação web que evolui o desafio original da Onda Finance para um contexto mais próximo de produto: pagamentos globais com moedas fiduciárias e trilhos cripto simulados, mantendo a base do projeto inicial intacta.
 
-Projeto desenvolvido por Tiago Melo Silva, como parte do desafio técnico para vaga a de Dev Front-End.
-
-
----
-
-## 🎯 Objetivo do desafio
-
-Construir uma aplicação simulando um app bancário simples, seguindo requisitos de:
-
-- organização
-- UX
-- boas práticas
-- tipagem
-- estrutura escalável
-
-Stack e requisitos definidos pelo desafio foram respeitados integralmente.
+Projeto desenvolvido por Tiago Melo Silva como evolução prática do desafio técnico para vaga de Dev Front-End.
 
 ---
 
-## 🧱 Stack utilizada (obrigatória pelo desafio proposto pelo Hugo)
+## Objetivo
+
+Esta versão 2.0 preserva o escopo original do desafio e adiciona uma camada de produto alinhada ao contexto da empresa:
+
+- fluxo bancário simples
+- transferências mockadas
+- organização de código
+- UX consistente
+- tipagem forte
+- evolução incremental sem quebrar a base existente
+
+O objetivo não é criar backend real, e sim simular um ambiente mais convincente de fintech global.
+
+---
+
+## Stack
+
+Stack mantida conforme o desafio original:
 
 - React + TypeScript
 - Vite
@@ -36,225 +38,281 @@ Stack e requisitos definidos pelo desafio foram respeitados integralmente.
 
 ---
 
-## ⚙️ Funcionalidades implementadas
+## O Que Continua Funcionando
 
-### 🔐 Login (mock)
+A base original não foi removida nem simplificada:
 
-- Tela de login simples
-- Validação de formulário
-- Persistência de sessão via Zustand
-- Controle de acesso a rotas protegidas
+- login mock
+- persistência de sessão
+- rotas protegidas
+- dashboard com saldo e histórico
+- transferência validada
+- atualização imediata do estado
+- modal de detalhe da transação
+- download local de PDF
+- teste automatizado do fluxo principal
 
----
-
-### 📊 Dashboard
-
-- Exibição de saldo consolidado
-- Indicadores de entradas e saídas (com modal descritivo e recurso para baixar o comprovante de movimentação em PDF, implementado por minha própria iniciativa)
-- Listagem de transações mockadas
-- Atualização automática após novas transferências
+O fluxo original BRL → BRL continua disponível como caso padrão.
 
 ---
 
-### 💸 Transferência
+## Novidades Da Versão 2.0
 
-- Formulário com validação (React Hook Form + Zod)
-- Bloqueio de envio inválido
-- Atualização imediata do saldo
-- Inserção da transação no topo do histórico
-- Feedback visual com toast
+### Multi-moeda
+
+Suporte a:
+
+- BRL
+- USD
+- EUR
+
+O usuário pode:
+
+- visualizar saldo por moeda
+- alternar a moeda de visualização no dashboard
+- acompanhar consolidado convertido
+
+### Câmbio Mockado
+
+Foi adicionada uma camada de exchange mock:
+
+- conversão entre BRL, USD e EUR
+- cotação simulada entre moeda de origem e destino
+- abstração isolada da UI
+
+### Transferência Internacional
+
+O fluxo de transferência foi enriquecido com:
+
+- moeda de origem
+- moeda de destino
+- preview de conversão
+- taxa cambial simulada
+- valor bruto convertido
+- valor final recebido
+
+### Crypto Mode
+
+Foi adicionada uma modalidade simulada de liquidação via cripto:
+
+- taxa operacional diferente
+- tempo de processamento diferente
+- badge visual no histórico
+- status de processamento coerente com rede simulada
+
+### Histórico Evoluído
+
+As transações agora carregam mais contexto:
+
+- moeda de origem
+- moeda de destino
+- taxa de câmbio
+- taxa operacional
+- escopo da operação: local, internacional ou crypto
+- tipo de liquidação: fiat ou crypto
+
+### Dashboard Evoluído
+
+Sem remover o layout base, o dashboard agora mostra:
+
+- saldo por moeda
+- seletor de moeda
+- total consolidado na moeda selecionada
+- origem das transações
+- leitura mais próxima de operação global
 
 ---
 
-### 🧾 Detalhamento de transações
+## Arquitetura
 
-- Modal completo com:
-  - nome
-  - e-mail
-  - tipo
-  - status
-  - valor
-  - data e hora
-  - descrição
+O padrão do projeto foi mantido:
 
----
+- Zustand para estado global
+- React Query para leitura/escrita mockadas
+- organização por domínio
+- separação entre UI, estado, mocks e utilitários
 
-### 📄 Geração de PDF (implementação extra)
+Novas extensões adicionadas:
 
-Por iniciativa própria, implementei um recurso que não foi solicitado no desafio:
+- `src/types/currency.ts`
+- `src/lib/exchange.ts`
 
-- Geração de relatório da transação em PDF
-- Layout baseado no próprio modal (não texto simplificado)
-- Header com identidade "Onda Finance"
-- Estrutura visual organizada
-- Download direto no navegador
+Esses arquivos concentram:
 
-Esse ponto foi pensado como simulação de funcionalidade real de produto.
+- tipagem de moedas
+- tipagem de trilhos de liquidação
+- cálculo de câmbio mockado
+- cálculo de taxas simuladas
+- consolidação de saldos
 
 ---
 
-### 🧪 Testes
+## Estrutura
 
-- Teste automatizado do fluxo principal de transferência
-- Validação de:
-  - envio de dados
-  - atualização de saldo
-  - inserção no histórico
-  - feedback visual
-
----
-
-## 🚀 O que foi além do desafio
-
-Não fiquei só no mínimo necessário.
-
-Implementei melhorias pensando como produto real:
-
-- Sincronização entre saldo e histórico (single source of truth)
-- Estado global centralizado com Zustand
-- Separação clara por domínio (features)
-- UX com feedbacks reais (toasts, bloqueios, estados)
-- Responsividade funcional (mobile e desktop de verdade)
-- Sidebar colapsável + menu mobile
-- Modal de detalhes completo
-- Exportação de dados em PDF
-- Organização de código preparada para escalar
-
----
-
-## 📁 Estrutura do projeto
-
-Organização orientada por domínio:
-
+```text
 src/
+  app/
+  components/
   features/
     auth/
     dashboard/
     transfer/
-
-Separação clara entre:
-- UI
-- estado
-- lógica
-- dados mockados
-- utilitários
+  lib/
+    exchange.ts
+    formatters.ts
+  mocks/
+  stores/
+  tests/
+  types/
+    currency.ts
+    transaction.ts
+```
 
 ---
 
-## 🔄 Fluxo da aplicação
+## Fluxo Da Aplicação
 
-1. Usuário acessa /login
-2. Autenticação mockada é validada
-3. Sessão é persistida
-4. Redirecionamento para /dashboard
-5. Dashboard exibe saldo + transações
-6. Usuário realiza transferência
-7. Sistema:
-   - valida dados
+1. Usuário acessa `/login`
+2. Faz autenticação mockada
+3. Sessão é persistida com Zustand
+4. Usuário entra em `/dashboard`
+5. Dashboard mostra saldos por moeda e histórico enriquecido
+6. Usuário acessa `/transfer`
+7. Escolhe:
+   - moeda de origem
+   - moeda de destino
+   - trilho fiat ou crypto
+8. O sistema calcula preview da conversão
+9. Ao confirmar:
+   - valida saldo da moeda de origem
+   - aplica quote mockada
    - atualiza saldo
-   - adiciona transação
-   - exibe feedback
-8. Usuário pode abrir detalhes da transação
-9. Pode gerar e baixar PDF do relatório
+   - adiciona transação ao histórico
+   - mantém feedback visual com toast
 
 ---
 
-## ⚙️ Como rodar o projeto
+## Como Rodar
 
 Instalar dependências:
 
+```bash
 npm install
+```
 
-Rodar ambiente de desenvolvimento:
+Rodar ambiente local:
 
+```bash
 npm run dev
+```
+
+Rodar build:
+
+```bash
+npm run build
+```
 
 Rodar testes:
 
+```bash
 npm run test
+```
 
 ---
 
-## 🔐 Segurança
-### Como evitar engenharia reversa
+## Testes
 
-Front-end sempre pode ser inspecionado. O objetivo não é impedir, mas reduzir exposição.
+O projeto mantém teste automatizado do fluxo principal de transferência, cobrindo:
 
-Aplicado:
+- submissão do formulário
+- atualização de saldo
+- atualização de histórico
+- feedback visual
 
-- Separação de responsabilidades
-- Nenhuma regra crítica no client
-- Sem exposição de dados sensíveis
-- Código preparado para minificação em build
+Além disso, a configuração do Vitest foi ajustada para considerar apenas os testes do projeto atual.
 
 ---
+
+## Segurança
+
+### Engenharia reversa
+
+Front-end sempre pode ser inspecionado. A mitigação aqui é estrutural:
+
+- separação de responsabilidades
+- nenhuma credencial sensível no client
+- lógica crítica real dependeria de backend
+- build pronta para minificação
 
 ### Vazamento de dados
 
-- Nenhum dado sensível persistido
-- Uso controlado de estado
-- Sanitização de dados exibidos
-- Estrutura pronta para integração segura com back-end
+Neste projeto:
+
+- não há dados sensíveis reais
+- estado é controlado localmente
+- autenticação continua mockada
+- nenhuma API externa é usada
+
+### O que exigiria backend real
+
+- autenticação verdadeira
+- controle de sessão seguro
+- regras antifraude
+- saldo real
+- liquidação real entre moedas
+- integrações com parceiros financeiros ou blockchain
 
 ---
 
-### O que depende de back-end
+## Decisões Técnicas
 
-- autenticação real
-- controle de sessão
-- validação de saldo
-- antifraude
-- criptografia
-
-O front aqui está preparado para essa integração, mas não substitui back-end.
-
----
-
-## 🧠 Decisões técnicas
-
-- Zustand como SSOT
-- React Query simulando comportamento de API real
-- Axios preparado para futura integração
-- Validação com Zod (tipagem forte)
-- Componentização baseada em shadcn/ui
-- Organização por domínio para escalabilidade
-- Separação entre UI, estado e dados
+- preservação do desafio original como base estável
+- evolução incremental em vez de refatoração total
+- modelagem multi-moeda com tipagem explícita
+- lógica de câmbio isolada em `lib/exchange`
+- store enriquecida sem remover compatibilidade com o saldo BRL existente
+- dashboard e histórico expandidos sem quebrar o fluxo anterior
 
 ---
 
-## 📈 Melhorias futuras
+## Melhorias Futuras
 
-Se fosse evoluir isso para produção:
+Se fosse evoluir para produção real:
 
-- Autenticação real (JWT + refresh token)
-- Integração com API real
-- Paginação de histórico
-- Filtros por período
-- CI/CD com pipeline automatizado
-- Logs e observabilidade
-- Testes mais abrangentes (edge e cases)
+- integração com API de FX real
+- cotação em tempo real
+- suporte a mais moedas
+- trilhos cripto com múltiplas redes
+- fee breakdown mais detalhado
+- filtros por moeda e tipo de liquidação
+- paginação de histórico
+- observabilidade e auditoria
 
 ---
 
-## 👤 Autoria
+## Autoria
 
-Projeto desenvolvido por mim:
+Projeto desenvolvido por:
 
 Tiago Melo Silva
 
+Responsável por:
+
 - arquitetura
 - UI/UX
-- estado
-- lógica
+- modelagem de estado
+- fluxo transacional
+- extensão 2.0 orientada a produto
 - testes
-- melhorias extras por iniciativa própria
 
 ---
 
-## 💬 Consideração final
+## Consideração Final
 
-Ao cumprir o desafio técnico implementando a estrutura exigida pra o desafio e recursos não solicitados (por minha própria iniciativa), mostro como penso na estrutura, experiência do usuário e evolução de produto.
+Esta versão 2.0 foi pensada para mostrar não apenas execução do desafio, mas capacidade de evolução de produto:
 
-Com isso espero mostrar minha expertise lidando com tarefas propostas dos mais diversos tipos.
+- sem quebrar a base existente
+- sem inflar a complexidade sem necessidade
+- com domínio financeiro mais próximo do contexto real da empresa
 
-Agradeço ao Hugo e à empresa pela oportunidade de mostrar um pouco do meu conhecimento técnico com este teste.
+O foco foi demonstrar visão incremental, clareza técnica e capacidade de transformar um teste inicial em uma fundação mais madura de produto.
