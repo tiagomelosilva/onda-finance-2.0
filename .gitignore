@@ -8,6 +8,4 @@ dist/
 *.tsbuildinfo
 
 .vercel/
-
-.vercel
 jobz-teste1.0/
